@@ -1,0 +1,66 @@
+/**index.wxss**/
+
+/* .userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+} */
+
+/* 样式开始 */
+
+.bookList {
+  display: flex;
+  justify-content: space-between;
+  width: 750rpx;
+}
+
+.bookItem {
+  display: table-cell;
+  width: 33.33%;
+}
+
+.rankTitle {
+  line-height: 80rpx;
+  display: block;
+  margin-bottom: 20rpx;
+  border-bottom: 2rpx solid #ccc;
+}
+
+.itemImage {
+  height: 236rpx;
+  width: 180rpx;
+  display: block;
+  margin: 0 auto;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: .16rem;
+  box-shadow: 0 0.10667rem 0.16rem hsla(0, 0%, 79%, .5);
+}
+
+.bookName {
+  /* margin: .26667rem auto 0; */
+  font-weight: 400;
+  display: block;
+  margin: 15rpx auto;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  width: 180rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
