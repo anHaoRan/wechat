@@ -4,20 +4,69 @@ const app = getApp()
 
 Page({
   data: {
+    current:1,//当前
     rankings: [], //数据
     rank: {},
-    femaleIds:[]//女频排行id
+    femaleIds: [], //女频排行id
+    maleIds: [], //男频排行id
+    channel: true,
+    ids: [],
+    items: [{
+      name: 'female',
+      value: '女频',
+      checked: 'true'
+    }, {
+      name: 'male',
+      value: '男频'
+    }]
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+  tebChannel: function(e) {
+    let {
+      channel
+    } = this.data;
+    let list = [];
+    if (e.detail.value) {
+      console.log('true', e.detail.value, '女频');
+      this.setData({
+        channel: true,
+        rankings: list
+      })
+      this.util();
+    } else {
+      console.log('false', e.detail.value, '男频');
+      this.setData({
+        channel: false,
+        rankings: list
+      })
+      this.util();
+    }
   },
-  getBookList: function(rankId,callback) {
+  radioChange: function(e) {
+    let {
+      channel
+    } = this.data;
+    let list = [];
+    if (e.detail.value == 'female') {
+      console.log('true', e.detail.value, '女频');
+      this.setData({
+        channel: true,
+        rankings: list
+      })
+      this.util();
+    } else {
+      console.log('false', e.detail.value, '男频');
+      this.setData({
+        channel: false,
+        rankings: list
+      })
+      this.util();
+    }
+  },
+  getBookList: function(rankId, callback) {
     let id = rankId || '54d43709fd6ec9ae04184aa5';
     let requestUrl = `https://anhr.top/getRanking?RankId=${id}`;
     let self = this;
+
     wx.request({
       url: requestUrl, //仅为示例，并非真实的接口地址
       header: {
@@ -27,12 +76,19 @@ Page({
         callback()
         let data = res.data.ranking;
         let rank = [];
-        let { rankings } = self.data;
+        let {
+          rankings,
+          current
+        } = self.data;
+        let o = current;
+        self.setData({
+          current:o+1
+        })
         data.books = data.books.splice(0, 3);
         data.books.map((item, index) => {
           item.cover = decodeURIComponent(item.cover.replace('/agent/', ''));
         });
-        rank.push(data)
+        rank.push(data);
         rankings = rankings.concat(rank);
         self.setData({
           rankings: rankings
@@ -40,29 +96,54 @@ Page({
       }
     })
   },
-  rankingList: function(data) {
+  rankingList: function() {
     let {
       female,
+      channel,
       male
     } = this.data.rank;
     let femaleIds = [];
+    let maleIds = [];
     let self = this;
     female.map((item, index) => {
       femaleIds.push(item._id);
     });
+    male.map((item, index) => {
+      maleIds.push(item._id);
+    });
     this.setData({
-      femaleIds:femaleIds
+      femaleIds: femaleIds,
+      maleIds: maleIds
     });
     this.util();
   },
-  util:function(){
-    let id = this.data.femaleIds.shift();
-    let self = this;
-    this.getBookList(id,()=>{
-      if(self.data.femaleIds.length>0){
-        self.util()
-      }
+  util: function() {
+    wx.showLoading({
+      title: '拼命加载中...'
     })
+    let data = [];
+    let self = this;
+    if (this.data.channel) {
+      data = data.concat(this.data.femaleIds);
+    } else {
+      data = data.concat(this.data.maleIds)
+    }
+    var nu = data.length;
+    this.setData({
+      allSize:nu,
+      current:0
+    })
+    function forEach() {
+      let id = data.shift();
+      self.getBookList(id, () => {
+        if (data.length > 0) {
+          forEach()
+        } else {
+          wx.hideLoading()
+        }
+      })
+    }
+    forEach();
   },
   getRankList: function(callback) {
     let requestUrl = `https://anhr.top/getRanking`;
@@ -80,44 +161,12 @@ Page({
       }
     })
   },
-  onShow: function() {
-    this.getRankList();
-  },
+  onShow: function() {},
   onLoad: function() {
-    // this.getBookList();
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse) {
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+    wx.showLoading({
+      title: '拼命加载中...'
     })
+    this.getRankList();
+    console.log(this,'<<<<<<<<<<<<<<<<<<<<<<<globalData')
   }
 })

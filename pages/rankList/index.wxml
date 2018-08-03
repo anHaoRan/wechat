@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">
+  <view>男频</view>
+  <view wx:for="{{rankingList.male}}">
+    {{item.title}}
+  </view>
+  <view>女频</view>
+  <view wx:for="{{rankingList.female}}">
+    {{item.title}}
+  </view>
+</view>

@@ -1,20 +1,26 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view> -->
+    <view class="popup" wx:if="{{popup}}"></view>
+    <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio" wx:for="{{items}}">
+          <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+        </label>
+    </radio-group>
   <view wx:for="{{rankings}}">
-    <text class="rankTitle">{{item.title}}</text>
+    <view class="rankTitle">
+    <text class="text">{{item.title}}</text>
+    <view class="more icon-gengduo">
+      <navigator class="link" hover-class="none" url="../rank/index?id={{item._id}}&title={{item.title}}">
+        <!-- 前往排行榜列表页面 -->
+      <text class="text">更多</text>
+      <image class="img" src="https://anhr.top/wechat/images/more.png"></image>
+      </navigator>
+    </view>
+    </view>
     <view class="bookList">
       <view class="bookItem" wx:for="{{item.books}}">
-        <navigator hover-class="none">
+        <navigator hover-class="none" url="../detail/index?id={{item._id}}&title={{item.title}}">
+           <!-- 前往书籍详情页面 -->
           <image src="{{item.cover}}" class="itemImage"/>
           <text class="bookName">{{item.title}}</text>
         </navigator>

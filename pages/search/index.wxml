@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="searchTop">
+    <input type="text" bindinput='saveText' placeholder="请输入作者或者小说名称"/>
+    <button bindtap="searchWork">搜索</button>
+  </view>
+  搜索结果：
+  <view class="queryResult">
+    view
+  </view>
+</view>

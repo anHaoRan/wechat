@@ -1,14 +1,36 @@
 /**index.wxss**/
-.radio-group{
-  margin: 0 auto;
-  width: 400rpx;
-  margin-bottom: 20rpx;
-  margin-top: 20rpx;
+
+/* .userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+} */
+
+/* 样式开始 */
+.container{
+  padding-top: 40rpx;
 }
 .bookList {
   display: flex;
   justify-content: space-between;
   width: 750rpx;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .bookItem {
@@ -27,11 +49,11 @@
   justify-content:space-between;
   padding:0 30rpx;
 }
-.more,.link{
+.more{
   display: flex;
   align-items: center;
 }
-.more .img{
+.more>.img{
   display: block;
   width: 40rpx;
   height:40rpx;

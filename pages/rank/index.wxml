@@ -1,0 +1,14 @@
+<!--index.wxml-->
+<view class="container">
+  <view>
+    <view class="bookList">
+      <view class="bookItem" wx:for="{{rankings.books}}">
+        <navigator hover-class="none" url="../detail/index?id={{item._id}}&title={{item.title}}">
+          <!-- 前往书籍详情页面 -->
+          <image src="{{item.cover}}" class="itemImage"/>
+          <text class="bookName">{{item.title}}</text>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

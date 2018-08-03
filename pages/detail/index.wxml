@@ -1,0 +1,24 @@
+<!--index.wxml-->
+<view class="container">
+  <image src="{{book.cover}}"/>
+  <view><text>书名：{{book.title}}</text></view>
+  <view><text>作者名：{{book.author}}</text></view>
+  <view><text>作者名：{{book.author}}</text></view>
+  <view><text>简介：{{book.longIntro}}</text></view>
+  <view><text>最新章节：{{book.lastChapter}}</text></view>
+  <view><text>频道：{{book.gender=='male'?'男频':'女频'}}</text></view>
+  <view><text>追书人数：{{book.latelyFollower}}</text></view>
+  <view><text>读者留存率：{{book.retentionRatio}}%</text></view>
+  <view><text>更新字数/天{{book.serializeWordCount}}</text></view>
+  <view><text>更新时间：{{book.updated}}</text></view>
+  <view><text>总字数：{{book.wordCount}}</text></view>
+  <view><text>一级分类：{{book.majorCate}}</text></view>
+  <view><text>三级分类：{{book.majorCateV2}}</text></view>
+  <view><text>二级分类：{{book.minorCate}}</text></view>
+  <view><text>四级分类：{{book.minorCateV2}}</text></view>
+  <navigator hover-class="none" url="../catalogue/index?id={{book._id}}">
+  <button>
+    目录
+  </button>
+</navigator>
+</view>

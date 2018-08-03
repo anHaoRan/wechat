@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view class="container">
+  <view wx:for="{{catalogue.chapters}}"><navigator url="../read/index{{item.link}}&title={{item.title}}"><text>{{item.title}}</text></navigator></view>
+</view>
