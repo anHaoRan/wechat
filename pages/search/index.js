@@ -51,6 +51,7 @@ Page({
         let data = res.data;
 
         data.books.map((item,index)=>{
+          console.log(item,'<<<<<<<<<<item')
           item.cover = item.cover.replace('/agent/','');
         })
         self.setData({

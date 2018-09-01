@@ -14,6 +14,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+
 const numberToString = n => {
   return n > 9999 ? n / 10000 + "万" : n;
 }

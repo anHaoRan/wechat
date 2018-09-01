@@ -6,6 +6,11 @@
   </view>
   搜索结果：
   <view class="queryResult">
-    view
+    <view wx:for="{{queryResult.books}}">
+      <image src="{{item.cover}}"/>
+      <view>
+        <text>{{item.title}}</text>
+      </view>
+    </view>
   </view>
 </view>
